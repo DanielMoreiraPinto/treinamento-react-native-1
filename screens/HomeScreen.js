@@ -11,7 +11,7 @@ export default function HomeScreen({navigation}) {
         <Text style={styles.text}>Home Screen</Text>
         <View style={styles.rowContainer}>
           <TextInput
-            style={styles.input}
+            style={styles.bigInput}
             value={textValue}
             placeholder="Nome"
             onChangeText={text => setTextValue(text)}
@@ -80,7 +80,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#e6e1e1',
     flex: 1,
     borderRadius: 8,
-    padding: '8%',
-    marginHorizontal: 5
+    height: 50,
+    paddingHorizontal: 5,
+    marginHorizontal: 5,
+    marginBottom: 15
+  },
+
+  bigInput: {
+    backgroundColor: '#e6e1e1',
+    flex: 3,
+    borderRadius: 8,
+    height: 50,
+    paddingHorizontal: 5,
+    marginHorizontal: 5,
+    marginBottom: 15
   }
 })
