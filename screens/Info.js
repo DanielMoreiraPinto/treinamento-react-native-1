@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, Image} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import ImagePicker from 'react-native-image-picker';
 
 export default function Info({navigation, route}){
     const [textoDoHomescreen, setTextoDoHomescreen] = React.useState({});
@@ -13,6 +14,11 @@ export default function Info({navigation, route}){
         <View style={styles.container}>
             <View style={styles.cardContainer}>
                 <Text style={styles.title}> Cartão do Estudante </Text>
+                <TouchableOpacity
+                    
+                >
+
+                </TouchableOpacity>
                 <View>
                     <Text style={styles.headerText}>
                         Nome:
@@ -92,5 +98,10 @@ const styles = StyleSheet.create({
 
     buttonText: {
         color: '#FFFFFF'
+    },
+
+    image: {
+        width: 20,
+        height: 20
     }
 });
