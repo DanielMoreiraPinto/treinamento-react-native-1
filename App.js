@@ -4,7 +4,7 @@ import { SplashScreen } from 'expo';
 import * as Font from 'expo-font';
 import { Ionicons } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, HeaderTitle } from '@react-navigation/stack';
 
 
 import HomeScreen from './screens/HomeScreen';
@@ -55,8 +55,16 @@ export default function App(props) {
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <NavigationContainer ref={containerRef} initialState={initialNavigationState}>
           <Stack.Navigator>
-            <Stack.Screen name="homescreen" component={HomeScreen}/>
-            <Stack.Screen name="infoscreen" component={Info}/>
+            <Stack.Screen 
+              name="homescreen" 
+              component={HomeScreen}
+              options={{title: "Principal"}}
+            />
+            <Stack.Screen 
+              name="infoscreen" 
+              component={Info}
+              options={{headerShown: false}}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </View>
