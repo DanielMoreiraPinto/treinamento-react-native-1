@@ -1,24 +1,57 @@
 import * as React from 'react';
 import {Text, View, StyleSheet, Image} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import ImagePicker from 'react-native-image-picker';
+import ImagePicker from 'expo-image-picker';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
 
 export default function Info({navigation, route}){
     const [textoDoHomescreen, setTextoDoHomescreen] = React.useState({});
+    const [image, setImage] = React.useState(require('../assets/images/blankImage.png'));
+
+    const _getPermissionAsync = async () => {
+        if (Constants.platform.ios) {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status !== 'granted') {
+                alert('É necessário permissões ao rolo da câmera para ver essa tela.');
+            }
+        }
+    };
 
     React.useEffect(() => {
         setTextoDoHomescreen(route.params.meutexto);
+        _getPermissionAsync();
     }, [])
+
+    const _pickImage = async () => {
+        try {
+            let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+            });
+            if (!result.cancelled) {
+                setImage(require(result.uri));
+            }
+            console.log(result);
+        } catch (E) {
+            console.log(E);
+        }
+    };
 
     return(
         <View style={styles.container}>
+            <TouchableOpacity
+                style={styles.imageArea}
+            >
+                <Image
+                    style={styles.profileImage}
+                    source={image}
+                />
+            </TouchableOpacity>
             <View style={styles.cardContainer}>
                 <Text style={styles.title}> Cartão do Estudante </Text>
-                <TouchableOpacity
-                    
-                >
-
-                </TouchableOpacity>
                 <View>
                     <Text style={styles.headerText}>
                         Nome:
@@ -100,8 +133,12 @@ const styles = StyleSheet.create({
         color: '#FFFFFF'
     },
 
-    image: {
-        width: 20,
-        height: 20
+    imageArea: {
+
+    },
+
+    profileImage: {
+        width: 100,
+        height: 100
     }
 });
